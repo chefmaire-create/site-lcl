@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LCL - Virement Express</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="top-header">
+            <div class="logo">LCL</div>
+            <button class="logout-btn" onclick="location.reload()">
+                <i class="fas fa-power-off"></i>
+            </button>
+        </div>
+        <div class="user-profile">
+            <p>Compte de dépôt</p>
+            <h2>800 000 000 €</h2>
+        </div>
+    </header>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main>
+        <div class="action-card">
+            <button class="btn-virement" onclick="openModal('virement-modal')">
+                <i class="fas fa-paper-plane"></i> FAIRE UN VIREMENT
+            </button>
+        </div>
+
+        <section class="history-section">
+            <div class="history-header">
+                <h3>HISTORIQUE DES OPÉRATIONS</h3>
+            </div>
+            <div id="transaction-list" class="transaction-list">
+                <div class="empty-state">Aucun virement récent</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ═══════════ MODAL : NOUVEAU VIREMENT ═══════════ -->
+    <div id="virement-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-head">
+                <h3>Détails du destinataire</h3>
+                <button onclick="closeModal('virement-modal')">&times;</button>
+            </div>
+            <form id="virement-form">
+                <div class="field">
+                    <label>Nom de l'émetteur</label>
+                    <input type="text" id="nom-emetteur" placeholder="Ex: LCL Admin" required>
+                </div>
+                <div class="field">
+                    <label>Nom du bénéficiaire</label>
+                    <input type="text" id="nom-proprio" placeholder="Nom complet" required>
+                </div>
+                <div class="field">
+                    <label>Gmail du destinataire</label>
+                    <input type="email" id="email-dest" placeholder="exemple@gmail.com" required>
+                </div>
+                <div class="field">
+                    <label>IBAN / RIB</label>
+                    <input type="text" id="iban-dest" placeholder="Saisir IBAN" required>
+                </div>
+                <div class="field">
+                    <label>Montant (€)</label>
+                    <input type="number" id="montant-virement" placeholder="0.00" min="0.01" step="0.01" required>
+                </div>
+                <button type="submit" class="submit-blue">
+                    <i class="fas fa-check-circle"></i> CONFIRMER LE VIREMENT
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══════════ MODAL : DÉTAIL VIREMENT ═══════════ -->
+    <div id="detail-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-head">
+                <h3>Détails du virement</h3>
+                <button onclick="closeModal('detail-modal')">&times;</button>
+            </div>
+            <div id="detail-content">
+                <!-- Rempli dynamiquement par script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ MODAL : BLOCAGE / SUSPENSION ═══════════ -->
+    <div id="annulation-modal" class="modal-overlay">
+        <div class="modal-card block-card">
+            <div class="block-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>VIREMENT SUSPENDU</h3>
+            <p>Veuillez définir les frais de déblocage pour notifier le destinataire :</p>
+            <form id="annulation-form">
+                <div class="field">
+                    <label>Frais de déblocage (€)</label>
+                    <input type="number" id="montant-deblocage" placeholder="Montant des frais (€)" min="0.01" step="0.01" required>
+                </div>
+                <button type="submit" class="submit-red">
+                    <i class="fas fa-lock"></i> BLOQUER ET ENVOYER GMAIL
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCRIPT ═══════════ -->
+    <script src="script.js"></script>
+
+</body>
+</html>
